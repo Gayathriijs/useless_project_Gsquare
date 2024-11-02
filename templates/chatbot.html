@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Pet Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pet-selection {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .pet-button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 16px;
+        }
+
+        .pet-button:hover {
+            transform: scale(1.05);
+        }
+
+        .pet-button.cat { background-color: #FFD6E0; }
+        .pet-button.dog { background-color: #FFEBB3; }
+        .pet-button.rabbit { background-color: #C1E1C1; }
+        .pet-button.owl { background-color: #C3B1E1; }
+
+        .chat-container {
+            flex-grow: 1;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            display: none;
+        }
+
+        .pet-status {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+        }
+
+        .pet-message {
+            background-color: #f5f5f5;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #dee2e6;
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .send-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .send-button:hover {
+            background-color: #45a049;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="pet-selection" id="petSelection">
+            <h2>Choose Your Virtual Pet</h2>
+            <button class="pet-button cat" data-pet="sazzy cat">🐱 Sazzy Cat</button>
+            <button class="pet-button dog" data-pet="energetic dog">🐶 Energetic Dog</button>
+            <button class="pet-button rabbit" data-pet="crazy rabbit">🐰 Crazy Rabbit</button>
+            <button class="pet-button owl" data-pet="moody owl">🦉 Moody Owl</button>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="pet-status">
+                <div class="status-item">
+                    <div>Happiness</div>
+                    <div id="happinessStatus">❤️❤️❤️</div>
+                </div>
+                <div class="status-item">
+                    <div>Energy</div>
+                    <div id="energyStatus">⚡⚡⚡</div>
+                </div>
+                <div class="status-item">
+                    <div>Hunger</div>
+                    <div id="hungerStatus">🍽️🍽️🍽️</div>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button class="send-button" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sessionId = null;
+        let currentPet = null;
+
+        // Initialize pet selection
+        document.querySelectorAll('.pet-button').forEach(button => {
+            button.addEventListener('click', () => selectPet(button.dataset.pet));
+        });
+
+        function generateSessionId() {
+            return 'session_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        async function selectPet(petType) {
+            currentPet = petType;
+            sessionId = generateSessionId();
+            
+            document.getElementById('petSelection').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/init-pet', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pet_type: petType,
+                        session_id: sessionId
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.status === 'success') {
+                    addMessage(data.response, 'pet');
+                    updateStatusDisplay(data.pet_state);
+                }
+            } catch (error) {
+                console.error('Error initializing pet:', error);
+            }
+        }
+
+        function addMessage(message, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function updateStatusDisplay(petState) {
+            document.getElementById('happinessStatus').textContent = '❤️'.repeat(Math.ceil(petState.happiness / 20));
+            document.getElementById('energyStatus').textContent = '⚡'.repeat(Math.ceil(petState.energy / 20));
+            document.getElementById('hungerStatus').textContent = '🍽️'.repeat(Math.ceil(petState.hunger / 20));
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (message && sessionId) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            session_id: sessionId,
+                            message: message
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        addMessage(data.response, 'pet');
+                        console.log(data.response)
+                        updateStatusDisplay(data.pet_state);
+                    }
+                } catch (error) {
+                    console.error('Error sending message:', error);
+                }
+            }
+        }
+
+        async function updatePetState() {
+            if (sessionId) {
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/api/update-state', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            session_id: sessionId
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        updateStatusDisplay(data.pet_state);
+                    }
+                } catch (error) {
+                    console.error('Error updating pet state:', error);
+                }
+            }
+        }
+
+        // Add enter key support for sending messages
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Update status every minute
+        setInterval(updatePetState, 60000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Pet Description</title>
+    <style>
+        /* Basic styles for centering and animation */
+        body, html {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            font-family: cursive, sans-serif;
+        }
+
+        .pet-animation {
+            width: 150px;
+            height: 150px;
+            background-color: #ffd8cb;
+            border-radius: 50%;
+            animation: bounce 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #ef9a9a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e9c5db;
+        }
+    </style>
+</head>
+<body>
+    <div class="pet-animation">
+        🐾 Pet Name 🐾
+    </div>
+    <a href="chatbot.html">
+        <button class="btn">Meet your pets</button>
+    </a>
+</body>
+</html>
+
