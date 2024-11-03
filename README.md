@@ -1,63 +1,75 @@
 <img width="1280" alt="readme-banner" src="https://github.com/user-attachments/assets/35332e92-44cb-425b-9dff-27bcf1023c6c">
+[]
 
-# [Project Name] 🎯
+# [Virtual pet roaster chatbot] 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: [G Square]
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: [Gayathri J S] - [TOC-H Institute of science and technology ]
+- Member 2: [Ganga Gireesh] - [TOC-H Institute of science and technology ]
+- Member 3: [Hiba Fathima A S ] - [TOC-H Institute of science and technology ]
 
 ### Project Description
-[2-3 lines about what your project does]
+[Virtual pet roaster chatbot is simple interesting chatbot of a virtual pet of your choice from the options that roastes you!!!]
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+[for those who doesnt have a pet]
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+[experience a pet virtually that roastes you ]
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- [Python]
+- [HTML]
+- [CSS]
+- [Together.ai]
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+[pip install flask together flask-cors]
 
 # Run
-[commands]
+[flask run]
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+[screenshot1](https://drive.google.com/drive/folders/1lrmjoVf-X3tWekbLUotZa1G1NhExYCoG?usp=sharing)
+[screenshot2](https://drive.google.com/drive/folders/1lrmjoVf-X3tWekbLUotZa1G1NhExYCoG?usp=sharing)
+[screenshot3](https://drive.google.com/drive/folders/1lrmjoVf-X3tWekbLUotZa1G1NhExYCoG?usp=sharing)
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+screenshot1:The user in carried to the first page of the program where they can select the confirmation to choose their pet
+screenshot2:the user is in a page where they can select their virtual chatbot character 
+screenshot3:the user is redirected to a third page where they can interact with the virtual pet of their selection 
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+Landing Page (Welcome/Confirmation Page)
+
+Display a welcoming message explaining the purpose of the program.
+Provide a button or prompt for the user to confirm their intention to proceed and choose their virtual pet.
+Confirmation action redirects the user to the selection page.
+Pet Selection Page
+
+Present the user with a list of virtual chatbot characters, each representing a different type of pet with unique personalities.
+Include descriptions or icons for each pet to make the selection more engaging.
+Provide a 'Select' button for each pet option.
+Once the user selects their desired pet, redirect them to the interaction page.
+Interaction Page
+
+Display the chosen virtual pet's avatar.
+Provide a chat interface where the user can type questions or messages to interact with their pet.
+Implement logic for generating witty, humorous responses from the pet based on its personality.
+
 
 For Hardware:
 
@@ -80,16 +92,18 @@ For Hardware:
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+[DEMO](https://drive.google.com/drive/folders/1lrmjoVf-X3tWekbLUotZa1G1NhExYCoG?usp=sharing)
+*This is a chatbot where the user can interact with the virtual pets like Sazzy cat,Energetic Dog,Crazy Rabbit,Moody Owl.That roasts you each time we ask.
+
+
 
 # Additional Demos
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- [Gayathri J S ]: [Coding]
+- [Ganga Gireesh]: [project idea]
+- [Hiba Fathima A S]: [Documentation]
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
