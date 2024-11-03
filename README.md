@@ -10,7 +10,7 @@
 
 ### Team Members
 - Team Lead: [Gayathri J S] - [TOC-H Institute of science and technology ]
-- Member 2: [Ganga Gireesh] - [TOC-H Institute of science and technology ]
+- Member 2: [ Ganga Gireesh ] - [TOC-H Institute of science and technology ]
 - Member 3: [Hiba Fathima A S ] - [TOC-H Institute of science and technology ]
 
 ### Project Description
@@ -102,7 +102,7 @@ For Hardware:
 
 ## Team Contributions
 - [Gayathri J S ]: [Coding]
-- [Ganga Gireesh]: [project idea]
+- [ Ganga Gireesh]: [project idea]
 - [Hiba Fathima A S]: [Documentation]
 
 ---
